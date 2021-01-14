@@ -1,0 +1,53 @@
+# all available settings of specific linters
+run:
+  skip-dirs:
+    - testdata
+    - scripts
+    - app-root
+    - ci
+
+linters:
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - errcheck
+    - gochecknoinits
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - golint
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - interfacer
+    - misspell
+    - nakedret
+    - rowserrcheck
+    - scopelint
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
+
+issues:
+  exclude-rules:
+    - path: cmd/tt-fix/tt-fix.go
+      linters:
+        - unparam
+      sources:
+        - createLink
+    - path: indexer.go
+      linters:
+        - gosec
+      sources:
+        - Status

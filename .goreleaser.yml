@@ -1,0 +1,49 @@
+# This is an example .goreleaser.yml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod download
+    # you may remove this if you don't need go generate
+    - go generate ./...
+
+env:
+  - CGO_ENABLED=0
+
+builds:
+  - main: ./cmd/main.go
+    id: hello-world
+    binary: hello-world
+    goos:
+      - linux
+      - windows
+      - darwin
+
+archives:
+  -
+    id: hello-world
+    builds:
+      - hello-world
+    format: zip
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    replacements:
+      amd64: 64-bit
+      386: 32-bit
+      darwin: macOS
+      linux: Tux
+
+brews:
+  -
+    name: hello-world
+    homepage: "https://hello"
+    description: "Hello World"
+    ids:
+      - hello-world
+    tap:
+      owner: hansbringert
+      name: homebrew-core
+    folder: Formula
+    url_template: "https://github.com/hansbringert/hello-world/releases/download/v{{ .Version }}/{{ .ArtifactName }}"
+
+release:
+  disable: false

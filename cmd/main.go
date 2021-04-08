@@ -33,6 +33,12 @@ var rootDir = "./static"
 func main() {
 	printVersion()
 	fileServer := box.FileServer(box.Dir(rootDir))
+
+	//fs := box.MyFileSystem{
+	//	Dir: rootDir,
+	//}
+	//fileServer := http.FileServer(fs)
+
 	http.Handle("/", fileServer)
 
 	// Start server

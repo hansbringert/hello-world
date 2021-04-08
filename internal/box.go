@@ -95,7 +95,11 @@ func GetFileBytes(filename string) []byte {
 	}
 
 	log.Infof("serve file from disk %s", rootDir+filename)
-	fileContent, err := ioutil.ReadFile(rootDir + filename)
+
+	reader, _ := os.Open(rootDir + filename)
+	fileContent, err := ioutil.ReadAll(reader)
+
+	//fileContent, err := ioutil.ReadFile(rootDir + filename)
 	if err != nil {
 		log.WithError(err).Fatalf("could not read file %s", rootDir+filename)
 	}
